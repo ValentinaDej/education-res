@@ -1,0 +1,47 @@
+<div class="container" [formGroup]="skillForm">
+  <mat-card>
+    <mat-card-title>Skills</mat-card-title>
+    <mat-card-content>
+      <div formArrayName="skills">
+        <mat-chip-list fxLayout="row wrap">
+          <mat-chip
+            *ngFor="let skill of skillsArray.controls; let i = index"
+            [removable]="true"
+            [ngStyle]="{ 'background-color': skill.get('color').value }"
+            (removed)="remove(i)"
+            style="margin: 5px 5px"
+          >
+            {{ skill.get("value").value }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+
+      <mat-card-actions fxLayout="column" [formGroup]="skillInputForm">
+        <mat-form-field appearance="fill" fxFlex style="width: 100%">
+          <mat-label>Skill</mat-label>
+          <input matInput formControlName="newSkill" />
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            color="primary"
+            [disabled]="!isAddButtonActive"
+            (click)="addNew()"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            color="warn"
+            (click)="clearAll()"
+          >
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-form-field>
+      </mat-card-actions>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,54 @@
+<div class="container">
+  <h2>Interesting couses</h2>
+  <div class="course-container" fxLayout="row wrap" style="gap: 20px">
+    <mat-card
+      *ngFor="let course of displayedCourses"
+      class="course-item"
+      fxFlex="100%"
+      fxFlex.gt-xs="calc(50% - 20px)"
+      fxFlex.gt-md="calc(25% - 20px)"
+      fxLayout="column"
+      fxLayoutAlign="space-between stretch"
+    >
+      <mat-card-header fxLayoutAlign="start center">
+        <mat-icon mat-card-avatar style="margin: 0; color: var(--primary)"
+          >school</mat-icon
+        >
+        <mat-card-title>{{ course.name }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p style="text-align: justify">{{ course.description }}</p>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon style="color: var(--primary)">schedule</mat-icon>
+            {{ course.session_duration }}
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end center">
+            <mat-icon style="color: var(--primary)">date_range</mat-icon>
+            {{ course.course_duration }}
+          </div>
+        </div>
+        <div>
+          <mat-icon style="color: var(--primary)">place</mat-icon>
+          {{ course.location }}
+        </div>
+      </mat-card-content>
+      <mat-card-actions fxLayout="row" fxLayoutAlign="end center">
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="viewDetails(course.id)"
+        >
+          Details
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <mat-paginator
+    [length]="totalCourses"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[4, 8, 16]"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
+</div>

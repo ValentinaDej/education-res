@@ -1,0 +1,30 @@
+<div class="container" [formGroup]="linksForm">
+  <mat-card formArrayName="links">
+    <mat-card-title>Links</mat-card-title>
+    <mat-card-content
+      fxLayout="column"
+      fxLayout.gt-sm="row"
+      fxLayoutGap.gt-sm="10px"
+    >
+      <div
+        *ngFor="let linkCtrl of linksArray.controls; let i = index"
+        [formGroupName]="i"
+        fxFlex
+      >
+        <mat-form-field appearance="fill" style="width: 100%">
+          <mat-label>{{ linkCtrl.get("name").value | capitalize }}</mat-label>
+          <input matInput formControlName="url" />
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            color="warn"
+            (click)="clear(i)"
+          >
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

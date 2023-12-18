@@ -1,0 +1,28 @@
+.custom-card {
+  background: url("../../../assets/images/baner-photo.jpg") no-repeat center
+    center;
+  background-size: cover;
+  position: relative;
+  height: 300px;
+}
+
+.text-content {
+  text-align: center;
+  padding: 5px 20px;
+}
+
+.learn-more-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+@media (min-width: 768px) {
+  .custom-card {
+    height: 500px;
+  }
+
+  .text-content {
+    padding: 20px 60px;
+  }
+}

@@ -1,0 +1,92 @@
+<div class="container" [formGroup]="languageForm">
+  <mat-card>
+    <mat-card-title>Languages</mat-card-title>
+    <mat-card-content>
+      <mat-accordion multi formArrayName="languages">
+        <mat-expansion-panel
+          *ngFor="let language of languagesArray.controls; let i = index"
+          [formGroupName]="i"
+          style="padding: 10px"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ language.get("language").value || "Language" }} -
+              {{ language.get("proficiency").value || "Proficiency" }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+            fxFlex="grow"
+            fxLayout="row"
+            fxLayoutGap="10px"
+          >
+            <mat-form-field fxFlex>
+              <mat-label>Language</mat-label>
+              <input matInput formControlName="language" />
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <mat-label>Proficiency</mat-label>
+              <input matInput formControlName="proficiency" />
+              <button
+                type="button"
+                mat-icon-button
+                matSuffix
+                color="warn"
+                (click)="remove(i)"
+              >
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel style="padding: 10px">
+          <mat-expansion-panel-header>
+            <mat-panel-title> Add more... </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div
+            fxLayout="column"
+            fxLayout.gt-sm="row"
+            fxLayoutGap="10px"
+            [formGroup]="languageInputForm"
+          >
+            <mat-form-field appearance="fill" fxFlex style="width: 100%">
+              <mat-label>Language</mat-label>
+              <input matInput formControlName="newLanguage" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex style="width: 100%">
+              <mat-label>Proficiency</mat-label>
+              <input matInput formControlName="newProficiency" />
+              <button
+                type="button"
+                mat-icon-button
+                matSuffix
+                color="warn"
+                (click)="clearAll()"
+              >
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutAlign="center center"
+            fxLayoutAlign.gt-sm="end center"
+          >
+            <button
+              type="button"
+              mat-raised-button
+              color="accent"
+              [disabled]="!isAddButtonActive"
+              (click)="addNew()"
+            >
+              Add
+            </button>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card-content>
+  </mat-card>
+</div>

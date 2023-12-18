@@ -1,0 +1,147 @@
+<div *ngIf="profile$ | async as profile">
+  <div class="container">
+    <div
+      fxLayout="column"
+      fxLayout.gt-sm="row"
+      fxLayoutAlign.gt-sm="start start"
+      fxLayoutGap="10px"
+      fxLayoutGap.gt-sm="50px"
+    >
+      <div
+        fxFlex="100%"
+        fxFlex.gt-sm="50%"
+        style="background-color: var(--accent); padding: 10px"
+      >
+        <h1>{{ profile.name }}</h1>
+        <h2>{{ profile.position }}</h2>
+      </div>
+
+      <div fxLayout="column" fxFlex="100%" fxFlex.gt-sm="50%">
+        <div
+          fxLayout="row wrap"
+          fxLayout.lt-md="column"
+          fxLayoutGap="10px"
+        ></div>
+        <ng-container *ngFor="let contact of profile.contact">
+          <a
+            *ngIf="contact.type !== 'location'"
+            [href]="
+              contact.type === 'email'
+                ? 'mailto:' + contact.value
+                : contact.type === 'phone'
+                ? 'tel:' + contact.value
+                : contact.type === 'telegram'
+                ? contact.value
+                : '#'
+            "
+            rel="author"
+            fxLayout="row"
+            fxLayoutAlign="start center"
+            fxLayoutGap="10px"
+            style="margin-bottom: 10px"
+            target="{{ contact.type === 'telegram' ? '_blank' : '_self' }}"
+          >
+            <mat-icon>{{ contact.icon }}</mat-icon>
+            <span>{{ contact.value }}</span>
+          </a>
+
+          <div
+            *ngIf="contact.type === 'location'"
+            fxLayout="row"
+            fxLayoutAlign="start center"
+            fxLayoutGap="10px"
+            style="margin-bottom: 10px"
+          >
+            <mat-icon>{{ contact.icon }}</mat-icon>
+            <span>{{ contact.value }}</span>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <svg
+      style="width: 20px"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 512 512"
+    >
+      <path
+        d="M464 256h-80v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8c-88.4 0-160 71.6-160 160v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48zm-288 0H96v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8C71.6 32 0 103.6 0 192v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z"
+      ></path>
+    </svg>
+    <p>
+      {{ profile.description }}
+    </p>
+  </div>
+
+  <div class="container">
+    <h2 style="text-align: center">Skills</h2>
+    <mat-card>
+      <mat-card-content>
+        <div fxLayout="row wrap" fxLayoutAlign="start center" style="gap: 10px">
+          <ng-container *ngFor="let skill of profile.skills">
+            <mat-chip [ngStyle]="{ 'background-color': skill.color }">
+              {{ skill.value }}
+            </mat-chip>
+          </ng-container>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="container">
+    <h2 style="text-align: center">Education</h2>
+    <ng-container *ngFor="let education of profile.education">
+      <mat-card style="margin: 10px 0">
+        <mat-card-content>
+          <div
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+            fxFlexAlign="left"
+          >
+            <span fxFlex>{{ education.year }}</span>
+            <span fxFlex>{{ education.course }}</span>
+            <span fxFlex>{{ education.institution }}</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  </div>
+
+  <div class="container">
+    <div fxLayout="row" fxLayoutAlign="space-between start">
+      <div fxFlex="50%">
+        <h2>Links</h2>
+        <ng-container *ngFor="let link of profile.links">
+          <a
+            [href]="link.url"
+            rel="author"
+            target="_blank"
+            fxLayout="row"
+            fxLayoutAlign="start center"
+            fxLayoutGap="10px"
+            style="margin-bottom: 10px"
+          >
+            <ng-container *ngIf="link.name?.toLowerCase() === 'linkedin'">
+              <app-linkedin-icon></app-linkedin-icon>
+            </ng-container>
+            <ng-container *ngIf="link.name?.toLowerCase() === 'github'">
+              <app-github-icon></app-github-icon>
+            </ng-container>
+            <span>{{ link.name }}</span>
+          </a>
+        </ng-container>
+      </div>
+
+      <div fxFlex="50%">
+        <h2>Languages</h2>
+        <ng-container *ngFor="let language of profile.languages">
+          <p>
+            {{ language.language }} <span>({{ language.proficiency }})</span>
+          </p>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+.active-link {
+  font-weight: bold;
+  position: relative;
+}
+
+.active-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-bottom: 2px solid white;
+  width: 100%;
+}

@@ -1,0 +1,64 @@
+<div class="container" [formGroup]="contactsForm">
+  <mat-card formArrayName="contacts">
+    <mat-card-title>Contact details</mat-card-title>
+    <mat-card-content>
+      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="10px">
+        <div fxFlex="100" fxFlex.gt-sm="50">
+          <div
+            *ngFor="
+              let contactCtrl of contactsArray.controls
+                | slice : 0 : contactsArray?.controls?.length / 2;
+              let i = index
+            "
+            [formGroupName]="i"
+          >
+            <mat-form-field appearance="fill" style="width: 100%">
+              <mat-label>{{
+                contactCtrl.get("type").value | capitalize
+              }}</mat-label>
+              <input matInput formControlName="value" />
+              <button
+                type="button"
+                mat-icon-button
+                matSuffix
+                color="warn"
+                (click)="clear(i)"
+              >
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxFlex="100" fxFlex.gt-sm="50">
+          <div
+            *ngFor="
+              let contactCtrl of contactsArray.controls
+                | slice
+                  : contactsArray?.controls?.length / 2
+                  : contactsArray?.controls?.length;
+              let j = index
+            "
+            [formGroupName]="j + contactsArray.controls.length / 2"
+          >
+            <mat-form-field appearance="fill" style="width: 100%">
+              <mat-label>{{
+                contactCtrl.get("type").value | capitalize
+              }}</mat-label>
+              <input matInput formControlName="value" />
+              <button
+                type="button"
+                mat-icon-button
+                matSuffix
+                color="warn"
+                (click)="clear(j + contactsArray.controls.length / 2)"
+              >
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

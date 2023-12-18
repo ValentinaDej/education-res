@@ -1,0 +1,37 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <app-about
+    [about]="aboutCh"
+    (aboutChange)="onAboutUpdate($event)"
+  ></app-about>
+
+  <app-contacts
+    [contacts]="contactsCh"
+    (contactsChange)="onContactUpdate($event)"
+  ></app-contacts>
+
+  <app-skills
+    [skills]="skillsCh"
+    (skillsChange)="onSkillUpdate($event)"
+  ></app-skills>
+
+  <app-education
+    [educations]="educationsCh"
+    (educationUpdate)="onEducationUpdate($event)"
+  ></app-education>
+
+  <app-languages
+    [languages]="languagesCh"
+    (languageUpdate)="onLanguageUpdate($event)"
+  ></app-languages>
+
+  <app-links [links]="linksCh" (linksChange)="onLinkUpdate($event)"></app-links>
+
+  <div
+    class="container"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    fxLayoutAlign.gt-sm="end center"
+  >
+    <button mat-raised-button color="primary">Submit</button>
+  </div>
+</form>
